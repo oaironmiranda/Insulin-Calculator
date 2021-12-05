@@ -1,0 +1,54 @@
+BoxLayout:
+    orientation: 'vertical'
+    MDToolbar:
+        title: "Insulin Calculator"
+        right_action_items: [["invert-colors", lambda x: app.navigation_draw()]]
+        pos_hint: {"top": 1}
+
+    MDBottomNavigation:
+
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            icon: 'water'
+            icon_right_color: (1,0,0,1)
+            text: "Add Record"
+
+            MDTextField:
+                id: num
+                hint_text: "Glucose"
+                icon_right: 'water'
+                icon_right_color: (1,0,0,1)
+                halign: "center"
+                size_hint_x: None
+                width: 300
+                font_size: 32
+                pos_hint: {"center_x": .5, "center_y": .8}
+                mode: "rectangle"
+                max_text_length: 3
+                input_filter: "int"
+
+            MDLabel:
+                id: label
+                text: "WELCOME"
+                halign: "center"
+                font_style: 'Button'
+                font_size: 32
+
+
+            MDRectangleFlatButton:
+                text: "Submit"
+                font_size: 32
+                pos_hint: {"center_x": .5, "center_y": .2}
+                on_release: app.calc()
+                padding_y: 15
+
+
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: "Database"
+            icon: 'database'
+
+            ScrollView:
+
+                MDList:
+                    id: container
