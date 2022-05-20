@@ -2,19 +2,19 @@ from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineListItem
 from datetime import datetime
-import psycopg2
+import mysql.connector
 
 
 
 class MainApp(MDApp):
     def build(self):
         # I hide my informations just for safe reasons
-        conn = psycopg2.connect(
-            host='host',
-            database='database',
-            user='user',
-            password='password',
-            port='5432'
+        conn = mysql.connector.connect(
+            host='b6uvkfjwjuqi6ckzxz5s-mysql.services.clever-cloud.com',
+            database='b6uvkfjwjuqi6ckzxz5s',
+            user='uczx3ztt4o1jmssx',
+            password='J57IrbhnsqCGnReZdnHx',
+            port='3306'
         )
 
         c = conn.cursor()
@@ -43,12 +43,12 @@ class MainApp(MDApp):
                 b = (a - 120) / 70
                 self.root.ids.label.text = f'Add {round(b)}UI'
 
-        conn = psycopg2.connect(
-            host='host',
-            database='database',
-            user='user',
-            password='password',
-            port='5432'
+        conn = mysql.connector.connect(
+            host='b6uvkfjwjuqi6ckzxz5s-mysql.services.clever-cloud.com',
+            database='b6uvkfjwjuqi6ckzxz5s',
+            user='uczx3ztt4o1jmssx',
+            password='J57IrbhnsqCGnReZdnHx',
+            port='3306'
         )
 
         data = datetime.strftime(datetime.today(), "%d/%m/%y")
@@ -75,21 +75,26 @@ class MainApp(MDApp):
             self.theme_cls.theme_style = "Dark"
 
     def on_start(self):
-        conn = psycopg2.connect(
-            host='host',
-            database='database',
-            user='user',
-            password='password',
-            port='5432'
+        conn = mysql.connector.connect(
+            host='b6uvkfjwjuqi6ckzxz5s-mysql.services.clever-cloud.com',
+            database='b6uvkfjwjuqi6ckzxz5s',
+            user='uczx3ztt4o1jmssx',
+            password='J57IrbhnsqCGnReZdnHx',
+            port='3306'
         )
         c = conn.cursor()
 
-        c.execute("SELECT  * FROM glic")
+        data = datetime.strftime(datetime.today(), "%d/%m/%y")
+
+        sql_command = "SELECT  * FROM glic WHERE dia = %s ORDER BY id DESC"
+        values = (f"{data}",)
+
+        c.execute(sql_command, values)
         records = c.fetchall()
 
         for record in records:
             self.root.ids.container.add_widget(
-                ThreeLineListItem(text=f"{record[2]}", secondary_text=f"{record[0]}", tertiary_text=f"{record[1]}")
+                ThreeLineListItem(text=f"{record[3]}", secondary_text=f"{record[1]}", tertiary_text=f"{record[2]}")
             )
 
         conn.commit()
