@@ -2,7 +2,7 @@ from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineListItem
 from datetime import datetime
-from mysql.connector
+import mysql.connector
 
 class MainApp(MDApp):
 
